@@ -1,7 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import netlifyLogo from 'public/netlify-logo.svg';
-import githubLogo from 'public/images/github-mark-white.svg';
+import teresaLogo from 'public/TeresaLogo.png';
 
 const navItems = [
     { linkText: 'Home', href: '/' },
@@ -12,11 +10,27 @@ const navItems = [
     { linkText: 'Classics', href: '/classics' }
 ];
 
+export default function Header() {
+  return (
+    <header>
+      {/* The src="/my-logo.png" path directly refers to public/my-logo.png */}
+      <Image
+        src={teresaLogo}
+        alt="Nhóm Teresa logo"
+        width={150}
+        height={40}
+      />
+      {/* ... other header content ... */}
+    </header>
+  );
+}
+
+/*
 export function Header() {
     return (
         <nav className="flex flex-wrap items-center gap-4 pt-6 pb-12 sm:pt-12 md:pb-24">
             <Link href="/">
-                <Image src={netlifyLogo} alt="Netlify logo" />
+                <Image src={netlifyLogo} alt="Nhóm Teresa logo" />
             </Link>
             {!!navItems?.length && (
                 <ul className="flex flex-wrap gap-x-4 gap-y-1">
@@ -40,3 +54,4 @@ export function Header() {
         </nav>
     );
 }
+*/
