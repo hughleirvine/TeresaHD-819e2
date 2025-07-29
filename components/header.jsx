@@ -10,10 +10,9 @@ const navItems = [
     { linkText: 'Classics', href: '/classics' }
 ];
 
-export default function Header() {
+export function Header() {
   return (
     <header>
-      {/* The src="/my-logo.png" path directly refers to public/my-logo.png */}
       <Image
         src={teresaLogo}
         alt="Nhóm Teresa logo"
