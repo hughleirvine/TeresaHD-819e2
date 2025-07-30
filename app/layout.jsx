@@ -6,7 +6,7 @@ import { Header } from '../components/header';
 export const metadata = {
     title: {
         template: '%s | Netlify',
-        default: 'Ban TTvTT'
+        default: 'Nhóm Teresa Hài Đồng Giêsu'
     }
 };
 
