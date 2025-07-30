@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import teresaLogo from 'public/TeresaLogo.png';
 
 const navItems = [
