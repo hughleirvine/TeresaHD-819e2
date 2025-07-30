@@ -155,3 +155,210 @@
         }
     }
 }
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.input-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+select {
+    padding: 10px;
+    width: 60%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    background-color: white;
+    cursor: pointer;
+}
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+button:hover {
+    background-color: #0056b3;
+}
+#loading {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+    display: none; /* Hidden by default */
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: "Times New Roman", serif;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-family: "Times New Roman", serif;
+}
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.print-section, .print-buttons-section {
+    text-align: center;
+    margin-top: 20px;
+}
+#fullScheduleDisplay {
+    margin-top: 100px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+#fullScheduleDisplay h2 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 15px;
+}
+#fullScheduleDisplay table {
+    width: 100%;
+    margin: 20px auto 0 auto;
+    table-layout: fixed;
+}
+#fullScheduleDisplay th, #fullScheduleDisplay td {
+    font-size: 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#fullScheduleDisplay th:nth-child(1), #fullScheduleDisplay td:nth-child(1) {
+    width: 65px;
+    white-space: nowrap;
+}
+#fullScheduleDisplay th {
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 0.55em;
+    overflow-wrap: break-word;
+    vertical-align: top;
+}
+.home-link-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.home-link {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+.home-link:hover {
+    background-color: #0056b3;
+}
+/* Paste this at the end of styles/globals.css */
+.action-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+#loading {
+    margin-top: 10px;
+    color: gray;
+    font-style: italic;
+}
+
+#errorResult {
+    color: red;
+    margin-top: 10px;
+}
+
+.hero-section {
+  background-image: linear-gradient(rgba(23, 37, 84, 0.6), rgba(23, 37, 84, 0.6)), url('/hero-background.jpg');
+}
+
+.quick-action-card {
+  @apply block p-6 bg-gray-800 rounded-lg shadow-lg transition-transform transform hover:-translate-y-1 hover:bg-gray-700;
+}
+
+.announcement-box {
+  @apply bg-gray-800 p-6 rounded-lg shadow-lg;
+  white-space: pre-wrap;
+}
+
+/* --- Styles for Lịch Công Giáo Page --- */
+
+/* Main container text color for readability */
+.lcgtg {
+    color: #E5E7EB; /* Light Gray */
+    background-color: #111827; /* Darker background */
+    border-color: #374151;
+}
+
+/* Table header style */
+.lcgtg .trtd td {
+    background-color: #374151; /* Medium Gray */
+    color: #FFFFFF; /* White */
+}
+
+/* Alternating row colors for easier reading */
+.lcgtg tr:nth-child(even) {
+    background-color: #1F2937;
+}
+
+/* Make the day of the week (e.g., Chúa Nhật) stand out */
+.lcgtg .vng {
+    color: #FBBF24; /* Amber/Gold color */
+}
+
+/* Make links bright and readable */
+.lcgtg a {
+    color: #67E8F9; /* Bright Cyan */
+}
+.lcgtg a:hover {
+    text-decoration: underline;
+}
+
+/* Add special background colors for important days */
+.lcgtg .trletrong { /* Solemnity */
+    background-color: rgba(185, 137, 36, 0.2);
+}
+.lcgtg .trlenho { /* Memorial */
+    background-color: rgba(167, 139, 250, 0.1);
+}
