@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
 
                 {/* 2. Add the Google Analytics scripts here */}
                 <Script 
-                  src="https://www.googletagmanager.com/gtag/js?id=G-DNMR4PP143" 
+                  src="https://www.googletagmanager.com/gtag/js?id=G-BDQLJ8ZTFX" 
                   strategy="afterInteractive" 
                 />
                 <Script id="google-analytics" strategy="afterInteractive">
@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
-                    gtag('config', 'G-DNMR4PP143', { 'debug_mode': true });
+                    gtag('config', 'G-BDQLJ8ZTFX', { 'debug_mode': true });
                   `}
                 </Script>
             </body>
