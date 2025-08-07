@@ -1,41 +1,45 @@
 // File: app/daily-prayers/page.jsx
+"use client";
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const JESUS_DIVINE_IMAGE_URL = "https://i.imgur.com/PyVG92U.png";
 
-async function getPageData() {
-  // CORRECTED: This logic now correctly determines the URL for both local and live environments.
-  const domain = process.env.URL || 'http://localhost:3000';
-  
-  try {
-    const [prayersRes, tableRes] = await Promise.all([
-      fetch(`${domain}/api/get-daily-prayers`, { cache: 'no-store' }),
-      fetch(`${domain}/api/get-prayer-table`, { cache: 'no-store' }),
-    ]);
+export default function DailyPrayersPage() {
+  // PASTE YOUR NEW GOOGLE SCRIPT URL HERE
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
 
-    if (!prayersRes.ok || !tableRes.ok) {
-      // Log the actual error status for better debugging
-      const prayersError = await prayersRes.text();
-      const tableError = await tableRes.text();
-      console.error({ prayersError, tableError });
-      throw new Error('Failed to fetch data from API');
-    }
+  const [prayersData, setPrayersData] = useState(null);
+  const [tableData, setTableData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const prayersData = await prayersRes.json();
-    const tableData = await tableRes.json();
-    return { prayersData, tableData };
-  } catch (error) {
-    console.error("Error fetching page data:", error);
-    return { error: error.message };
+  useEffect(() => {
+    const prayersPromise = fetch(`${API_URL}?action=getDailyPrayers`).then(res => res.json());
+    const tablePromise = fetch(`${API_URL}?action=getPrayerTable`).then(res => res.json());
+
+    Promise.all([prayersPromise, tablePromise])
+      .then(([prayersResult, tableResult]) => {
+        if (prayersResult.error || tableResult.error) {
+          throw new Error(prayersResult.error || tableResult.error);
+        }
+        setPrayersData(prayersResult);
+        setTableData(tableResult);
+      })
+      .catch(err => {
+        console.error(err);
+        setError(err.message);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  if (isLoading) {
+    return <div className="container" style={{color: '#333'}}><h1>Loading Prayers...</h1></div>;
   }
-}
-
-
-export default async function DailyPrayersPage() {
-  const { prayersData, tableData, error } = await getPageData();
 
   if (error || !prayersData || !tableData) {
-    return <div className="container" style={{color: '#333'}}><h1>Error Loading Page</h1><p>{error || "Data could not be loaded."}</p></div>
+    return <div className="container" style={{color: '#333'}}><h1>Error Loading Page</h1><p>{error || "Data could not be loaded."}</p></div>;
   }
 
   const tableInsertionIndex = 7;
