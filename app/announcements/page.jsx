@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 
 export default function AnnouncementPage() {
-  const API_URL = 'https://script.google.com/macros/s/AKfycbze1WBsLldahSsrQptMHqYQ23a7Li5ls9tjl4Twa2QhJ7SitosFy1E1t40yeIYvBoqpTg/exec';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
   
   const [announcements, setAnnouncements] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
