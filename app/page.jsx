@@ -40,7 +40,7 @@ export default async function HomePage() {
           <Link href="/daily-prayers" className="quick-action-card">
             <Image src="/schedule-icon.png" alt="Schedule Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Kinh LCTX</h2>
-            <p className="mt-2 text-gray-400">Kinh LCTX.</p>
+            <p className="mt-2 text-gray-400">Doc Kinh LCTX Moi Ngay</p>
           </Link>
 
           {/* Schedule Card */}
