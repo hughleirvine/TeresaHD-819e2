@@ -3,11 +3,11 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import styles from './prayers.module.css'; // Import the new CSS module
 
 const JESUS_DIVINE_IMAGE_URL = "https://i.imgur.com/PyVG92U.png";
 
 export default function DailyPrayersPage() {
-  // PASTE YOUR NEW GOOGLE SCRIPT URL HERE
   const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
 
   const [prayersData, setPrayersData] = useState(null);
@@ -32,32 +32,32 @@ export default function DailyPrayersPage() {
         setError(err.message);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [API_URL]);
 
   if (isLoading) {
-    return <div className="container" style={{color: '#333'}}><h1>Loading Prayers...</h1></div>;
+    return <div className={styles.pageWrapper}><div className={styles.container}><h1>Loading Prayers...</h1></div></div>;
   }
 
   if (error || !prayersData || !tableData) {
-    return <div className="container" style={{color: '#333'}}><h1>Error Loading Page</h1><p>{error || "Data could not be loaded."}</p></div>;
+    return <div className={styles.pageWrapper}><div className={styles.container}><h1>Error Loading Page</h1><p>{error || "Data could not be loaded."}</p></div></div>;
   }
 
   const tableInsertionIndex = 7;
 
   return (
-    <>
-      <div className="container">
+    <div className={styles.pageWrapper}>
+      <div className={styles.container}>
         <h1>TUẦN CỬU NHẬT (Ngày Thứ {prayersData.currentSetNumber})</h1>
         <h2>Kinh Lòng Chúa Thương Xót</h2>
 
         {prayersData.formattedPrayers.map((prayer, i) => (
           <div key={i}>
-            <div className="prayer-section">
-              <p className="prayer-text" dangerouslySetInnerHTML={{ __html: prayer }} />
+            <div className={styles.prayerSection}>
+              <p className={styles.prayerText} dangerouslySetInnerHTML={{ __html: prayer }} />
             </div>
 
             {i === tableInsertionIndex && tableData.tableData.length > 0 && (
-              <table className="additional-table">
+              <table className={styles.additionalTable}>
                 <thead>
                   <tr>
                     {tableData.tableData[0].map((header, colIndex) => (
@@ -79,14 +79,14 @@ export default function DailyPrayersPage() {
           </div>
         ))}
 
-        <div className="footer">
+        <div className={styles.footer}>
           Nhóm Teresa Hài Đồng Giêsu 2025
         </div>
       </div>
 
-      <div className="image-container">
+      <div className={styles.imageContainer}>
         <Image src={JESUS_DIVINE_IMAGE_URL} alt="Jesus Divine Image" width={200} height={300} style={{width: '100%', height: 'auto'}} priority />
       </div>
-    </>
+    </div>
   );
 }
