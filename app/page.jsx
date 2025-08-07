@@ -33,9 +33,16 @@ export default async function HomePage() {
 
       {/* 2. Quick Actions Section */}
       <section>
-        {/* Updated grid to handle 4 items responsively */}
+        {/* Updated grid to handle 5 items responsively */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           
+          {/* Daily Prayer Card */}
+          <Link href="/daily-prayers" className="quick-action-card">
+            <Image src="/schedule-icon.png" alt="Schedule Icon" width={80} height={80} className="mx-auto mb-4" />
+            <h2 className="text-2xl font-semibold text-white">Kinh LCTX</h2>
+            <p className="mt-2 text-gray-400">Kinh LCTX.</p>
+          </Link>
+
           {/* Schedule Card */}
           <Link href="/schedule" className="quick-action-card">
             <Image src="/schedule-icon.png" alt="Schedule Icon" width={80} height={80} className="mx-auto mb-4" />
