@@ -4,14 +4,15 @@ import Image from 'next/image'; // Import the Image component
 // This function fetches the latest announcement from your Google Script API
 async function getLatestAnnouncement() {
   const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
-  
+
   try {
-    const response = await fetch(`${API_URL}?action=getAnnouncements`, { next: { revalidate: 300 } });
+    // Updated to call the new, specific action
+    const response = await fetch(`${API_URL}?action=getLatestTextAnnouncement`, { next: { revalidate: 300 } });
     if (!response.ok) {
       throw new Error('Failed to fetch announcement');
     }
     const data = await response.json();
-    return data.announcements && data.announcements.length > 0 ? data.announcements[0] : null;
+    return data.announcement || null;
   } catch (error) {
     console.error("Failed to fetch announcement:", error);
     return null;
