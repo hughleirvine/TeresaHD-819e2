@@ -3,7 +3,7 @@ import Image from 'next/image'; // Import the Image component
 
 // This function fetches the latest announcement from your Google Script API
 async function getLatestAnnouncement() {
-  const API_URL = 'https://script.google.com/macros/s/AKfycbze1WBsLldahSsrQptMHqYQ23a7Li5ls9tjl4Twa2QhJ7SitosFy1E1t40yeIYvBoqpTg/exec';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
   
   try {
     const response = await fetch(`${API_URL}?action=getAnnouncements`, { next: { revalidate: 300 } });
