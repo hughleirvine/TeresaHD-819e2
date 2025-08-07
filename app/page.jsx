@@ -43,13 +43,6 @@ export default async function HomePage() {
             <p className="mt-2 text-gray-400">Vào đây đọc kinh LCTX</p>
           </Link>
 
-          {/* Schedule Card */}
-          <Link href="/schedule" className="quick-action-card">
-            <Image src="/schedule-icon.png" alt="Schedule Icon" width={80} height={80} className="mx-auto mb-4" />
-            <h2 className="text-2xl font-semibold text-white">Xem Lịch Phục Vụ</h2>
-            <p className="mt-2 text-gray-400">Xem lịch trực cá nhân và toàn bộ ban.</p>
-          </Link>
-
           {/* Announcements Card */}
           <Link href="/announcements" className="quick-action-card">
             <Image src="/announcement-icon.png" alt="Announcement Icon" width={80} height={80} className="mx-auto mb-4" />
