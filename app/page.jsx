@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import Image from 'next/image'; // Import the Image component
+import Image from 'next/image';
 
-// This function fetches the latest announcement from your Google Script API
+// This function fetches the latest TEXT announcement from your Google Script API
 async function getLatestAnnouncement() {
   const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
-
+  
   try {
-    // Updated to call the new, specific action
     const response = await fetch(`${API_URL}?action=getLatestTextAnnouncement`, { next: { revalidate: 300 } });
     if (!response.ok) {
       throw new Error('Failed to fetch announcement');
@@ -24,7 +23,7 @@ export default async function HomePage() {
 
   return (
     <main className="space-y-12">
-      {/* 1. Welcome Section */}
+      {/* ... Welcome Section and Quick Action Cards remain the same ... */}
       <section className="text-center py-16 px-4 rounded-lg hero-section">
         <h1 className="text-4xl md:text-5xl font-bold text-white">Kính Chào Nhóm Teresa Hài Đồng Giêsu</h1>
         <p className="mt-4 text-lg text-gray-200">
@@ -32,52 +31,44 @@ export default async function HomePage() {
         </p>
       </section>
 
-      {/* 2. Quick Actions Section */}
       <section>
-        {/* Updated grid to handle 5 items responsively */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          
-          {/* Daily Prayer Card */}
           <Link href="/daily-prayers" className="quick-action-card">
-            <Image src="/prayer-icon.png" alt="Prayer Icon" width={80} height={80} className="mx-auto mb-4" />
+            <Image src="/schedule-icon.png" alt="Kinh LCTX Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Kinh LCTX</h2>
             <p className="mt-2 text-gray-400">Vào đây đọc kinh LCTX</p>
           </Link>
-
-          {/* Announcements Card */}
           <Link href="/announcements" className="quick-action-card">
-            <Image src="/announcement-icon.png" alt="Announcement Icon" width={80} height={80} className="mx-auto mb-4" />
+            <Image src="/announcement-icon.png" alt="Thông Báo Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Thông Báo Mới Nhất</h2>
             <p className="mt-2 text-gray-400">Cập nhật những thông báo quan trọng.</p>
           </Link>
-
-          {/* Bulletin Card */}
-          <a href="/bulletins" target="_blank" rel="noopener noreferrer" className="quick-action-card">
-             <Image src="/bulletin-icon.png" alt="Bulletin Icon" width={80} height={80} className="mx-auto mb-4" />
+          <a href="/hiep-thong" target="_blank" rel="noopener noreferrer" className="quick-action-card">
+             <Image src="/bulletin-icon.png" alt="Hiệp Thông Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Hiệp Thông Hàng Tuần</h2>
             <p className="mt-2 text-gray-400">Tải về các bản tin Hiệp Thông mới nhất.</p>
           </a>
-          
-          {/* ADDED: Liturgical Calendar Card */}
           <Link href="/lich-cong-giao" className="quick-action-card">
-            <Image src="/calendar-icon.png" alt="Calendar Icon" width={80} height={80} className="mx-auto mb-4" />
+            <Image src="/calendar-icon.png" alt="Lịch Công Giáo Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Lịch Công Giáo</h2>
             <p className="mt-2 text-gray-400">Xem lịch phụng vụ cho các tuần sắp tới.</p>
           </Link>
-
         </div>
       </section>
 
-      {/* 3. Recent Announcement Section */}
-      {latestAnnouncement && (
-        <section>
-          <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
-          <div className="announcement-box text-gray-300">
-            {latestAnnouncement}
-          </div>
-        </section>
-      )}
+      {/* --- CORRECTED ANNOUNCEMENT SECTION --- */}
+      <section>
+        <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
+        <div className="announcement-box text-gray-300">
+          {latestAnnouncement ? (
+            // If an announcement is found, display it
+            latestAnnouncement
+          ) : (
+            // If no text announcement is found, display this message
+            <p>Hiện không có thông báo mới.</p>
+          )}
+        </div>
+      </section>
     </main>
   );
 }
-
