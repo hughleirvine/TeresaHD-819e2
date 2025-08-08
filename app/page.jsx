@@ -7,7 +7,7 @@ async function getLatestAnnouncement() {
   
   try {
     // CORRECTED: Calls the correct action to get only the latest text announcement
-    const response = await fetch(`${API_URL}?action=getAnnouncements`, { next: { revalidate: 300 } });
+    const response = await fetch(`${API_URL}?action=getLatestTextAnnouncement`, { next: { revalidate: 300 } });
     if (!response.ok) {
       throw new Error('Failed to fetch announcement');
     }
