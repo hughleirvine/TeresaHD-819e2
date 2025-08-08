@@ -4,7 +4,8 @@ import teresaLogo from 'public/TeresaLogo.png';
 
 const navItems = [
     { linkText: 'Trang Nhà', href: '/' },
-    { linkText: 'Kinh Lòng Chúa Thương Xót', href: '/daily-prayers'},
+    { linkText: 'Kinh LCTX', href: '/daily-prayers'},
+    { linkText: 'Kinh Thánh', href: '/weekly-prayers'},
     { linkText: 'Thông Báo', href: '/announcements' },
     { linkText: 'Hiệp Thông', href: '/bulletins' },
     { linkText: 'Lịch Công Giáo', href: '/lich-cong-giao' }

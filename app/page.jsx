@@ -48,6 +48,13 @@ export default async function HomePage() {
             <h2 className="text-2xl font-semibold text-white">Kinh LCTX</h2>
             <p className="mt-2 text-gray-400">Vào đây đọc kinh LCTX</p>
           </Link>
+          <section>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <Link href="/weekly-prayers" className="quick-action-card">
+            <Image src="/schedule-icon.png" alt="Kinh Thanh Icon" width={80} height={80} className="mx-auto mb-4" />
+            <h2 className="text-2xl font-semibold text-white">Kinh Thánh</h2>
+            <p className="mt-2 text-gray-400">Buổi Chia Sẻ Kinh Thánh Vào Thứ Ba Mỗi Tuần LCTX</p>
+          </Link>
           <Link href="/announcements" className="quick-action-card">
             <Image src="/announcement-icon.png" alt="Thông Báo Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Thông Báo Mới Nhất</h2>
