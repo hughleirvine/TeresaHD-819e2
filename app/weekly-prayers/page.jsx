@@ -17,7 +17,7 @@ export default function WeeklyPrayersPage() {
 
   useEffect(() => {
     const prayersPromise = fetch(`${API_URL}?action=getWklyBiblePrayer`).then(res => res.json());
-    const tablePromise = fetch(`${API_URL}?action=getPrayerTable`).then(res => res.json());
+    const tablePromise = null;
 
     Promise.all([prayersPromise, tablePromise])
       .then(([prayersResult, tableResult]) => {
@@ -47,7 +47,7 @@ export default function WeeklyPrayersPage() {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.container}>
-        <h1>Thánh Kinh Mỗi Tuần)</h1>
+        <h1>Thánh Kinh Mỗi Tuần</h1>
         <h2>Kinh Chia Sẻ Kinh Thánh</h2>
 
         {prayersData.formattedPrayers.map((prayer, i) => (
