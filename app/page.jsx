@@ -53,7 +53,7 @@ export default async function HomePage() {
             <h2 className="text-2xl font-semibold text-white">Thông Báo Mới Nhất</h2>
             <p className="mt-2 text-gray-400">Cập nhật những thông báo quan trọng.</p>
           </Link>
-          <a href="/hiep-thong" target="_blank" rel="noopener noreferrer" className="quick-action-card">
+          <a href="/bulletins" target="_blank" rel="noopener noreferrer" className="quick-action-card">
              <Image src="/bulletin-icon.png" alt="Hiệp Thông Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Hiệp Thông Hàng Tuần</h2>
             <p className="mt-2 text-gray-400">Tải về các bản tin Hiệp Thông mới nhất.</p>
