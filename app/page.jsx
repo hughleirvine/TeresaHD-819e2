@@ -60,16 +60,13 @@ export default async function HomePage() {
       </section>
 
       {/* 3. Recent Announcement Section */}
-      <section>
-        <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
-        <div className="announcement-box text-gray-300">
-          {latestAnnouncement ? (
-            latestAnnouncement
-          ) : (
-            <p>Hiện không có thông báo mới.</p>
-          )}
-        </div>
-      </section>
+      {latestAnnouncement && (
+        <section>
+          <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
+          <div className="announcement-box text-gray-300">
+            {latestAnnouncement}
+          </div>
+        </section>
     </main>
   );
 }
