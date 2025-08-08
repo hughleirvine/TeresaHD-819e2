@@ -1,21 +1,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+// This helper function checks if a string is a direct link to an image file
+const isImageUrl = (url) => {
+  return typeof url === 'string' && /\.(jpeg|jpg|gif|png|svg)$/i.test(url);
+};
+
 // This function fetches the latest TEXT announcement from your Google Script API
 async function getLatestAnnouncement() {
   const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
   
   try {
-    // CORRECTED: Calls the correct action to get only the latest text announcement
-    const response = await fetch(`${API_URL}?action=getLatestTextAnnouncement`, { next: { revalidate: 300 } });
+    // We will fetch ALL recent announcements and decide which one to show on the page
+    const response = await fetch(`${API_URL}?action=getAnnouncements`, { next: { revalidate: 300 } });
     if (!response.ok) {
       throw new Error('Failed to fetch announcement');
     }
     const data = await response.json();
-    
-    // CORRECTED: Looks for the correct 'announcement' key from the response
-    return data.announcement || null;
-    
+    // Return the very first item, whether it's text or an image
+    return data.announcements && data.announcements.length > 0 ? data.announcements[0] : null;
   } catch (error) {
     console.error("Failed to fetch announcement:", error);
     return null;
@@ -41,7 +44,7 @@ export default async function HomePage() {
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           <Link href="/daily-prayers" className="quick-action-card">
-            <Image src="/prayer-icon.png" alt="Kinh LCTX Icon" width={80} height={80} className="mx-auto mb-4" />
+            <Image src="/schedule-icon.png" alt="Kinh LCTX Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Kinh LCTX</h2>
             <p className="mt-2 text-gray-400">Vào đây đọc kinh LCTX</p>
           </Link>
@@ -64,14 +67,24 @@ export default async function HomePage() {
       </section>
 
       {/* 3. Recent Announcement Section */}
-      {latestAnnouncement && (
-        <section>
-          <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
-          <div className="announcement-box text-gray-300">
-            {latestAnnouncement}
-          </div>
-        </section>
-      )}
+      <section>
+        <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
+        <div className="announcement-box text-gray-300">
+          {latestAnnouncement ? (
+            // Check if the announcement is an image URL
+            isImageUrl(latestAnnouncement) ? (
+              // If it is, display it as an Image
+              <Image src={latestAnnouncement} alt="Recent Announcement" width={800} height={500} style={{ maxWidth: '100%', height: 'auto', borderRadius: '5px' }} />
+            ) : (
+              // Otherwise, display it as text
+              latestAnnouncement
+            )
+          ) : (
+            // If no announcements are found, display this message
+            <p>Hiện không có thông báo mới.</p>
+          )}
+        </div>
+      </section>
     </main>
   );
 }
