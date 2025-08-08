@@ -371,6 +371,3 @@ tr:nth-child(even) {
   padding-top: 1px; /* Prevents margin collapse */
   padding-bottom: 20px;
 }
-.wrapper {
-    text-align: center;
-}

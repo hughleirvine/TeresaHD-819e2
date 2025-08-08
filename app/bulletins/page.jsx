@@ -51,7 +51,7 @@ export default function BulletinPage() {
       {isLoading && <p id="loading">Loading latest bulletins...</p>}
       {error && <p id="errorResult">{error}</p>}
       
-      <div id="buttonsContainer" class="wrapper">
+      <div id="buttonsContainer">
         {!isLoading && !error && links.map((link, index) => (
           // Buttons now call the handler function instead of opening a new tab
           <button 
