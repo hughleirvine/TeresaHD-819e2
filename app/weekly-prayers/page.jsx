@@ -17,9 +17,9 @@ export default function WeeklyPrayersPage() {
 
   useEffect(() => {
     const prayersPromise = fetch(`${API_URL}?action=getWklyBiblePrayer`).then(res => res.json());
-    // const tablePromise = null;
+    const tablePromise = ' ';
 
-    Promise.all([prayersPromise])
+    Promise.all([prayersPromise,tablePromise])
       .then(([prayersResult, tableResult]) => {
         if (prayersResult.error || tableResult.error) {
           throw new Error(prayersResult.error || tableResult.error);
