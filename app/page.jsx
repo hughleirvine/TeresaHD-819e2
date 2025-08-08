@@ -49,7 +49,7 @@ export default async function HomePage() {
           </Link>
           
           <Link href="/weekly-prayers" className="quick-action-card">
-            <Image src="/schedule-icon.png" alt="Kinh Thanh Icon" width={80} height={80} className="mx-auto mb-4" />
+            <Image src="/study-icon.png" alt="Kinh Thanh Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Kinh Thánh</h2>
             <p className="mt-2 text-gray-400">Buổi Chia Sẻ Kinh Thánh Vào Thứ Ba Mỗi Tuần LCTX</p>
           </Link>
