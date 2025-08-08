@@ -6,18 +6,16 @@ const isImageUrl = (url) => {
   return typeof url === 'string' && /\.(jpeg|jpg|gif|png|svg)$/i.test(url);
 };
 
-// This function fetches the latest TEXT announcement from your Google Script API
+// This function fetches the latest announcement from your Google Script API
 async function getLatestAnnouncement() {
   const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
   
   try {
-    // We will fetch ALL recent announcements and decide which one to show on the page
     const response = await fetch(`${API_URL}?action=getAnnouncements`, { next: { revalidate: 300 } });
     if (!response.ok) {
       throw new Error('Failed to fetch announcement');
     }
     const data = await response.json();
-    // Return the very first item, whether it's text or an image
     return data.announcements && data.announcements.length > 0 ? data.announcements[0] : null;
   } catch (error) {
     console.error("Failed to fetch announcement:", error);
@@ -40,36 +38,40 @@ export default async function HomePage() {
         </p>
       </section>
 
-      {/* 2. Quick Actions Section */}
+      {/* 2. Quick Actions Section - CORRECTED STRUCTURE */}
       <section>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
+          
           <Link href="/daily-prayers" className="quick-action-card">
             <Image src="/prayer-icon.png" alt="Kinh LCTX Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Kinh LCTX</h2>
             <p className="mt-2 text-gray-400">Vào đây đọc kinh LCTX</p>
           </Link>
-          <section>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          
           <Link href="/weekly-prayers" className="quick-action-card">
             <Image src="/schedule-icon.png" alt="Kinh Thanh Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Kinh Thánh</h2>
             <p className="mt-2 text-gray-400">Buổi Chia Sẻ Kinh Thánh Vào Thứ Ba Mỗi Tuần LCTX</p>
           </Link>
+          
           <Link href="/announcements" className="quick-action-card">
             <Image src="/announcement-icon.png" alt="Thông Báo Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Thông Báo Mới Nhất</h2>
             <p className="mt-2 text-gray-400">Cập nhật những thông báo quan trọng.</p>
           </Link>
+          
           <a href="/bulletins" target="_blank" rel="noopener noreferrer" className="quick-action-card">
-             <Image src="/bulletin-icon.png" alt="Hiệp Thông Icon" width={80} height={80} className="mx-auto mb-4" />
+            <Image src="/bulletin-icon.png" alt="Hiệp Thông Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Hiệp Thông Hàng Tuần</h2>
             <p className="mt-2 text-gray-400">Tải về các bản tin Hiệp Thông mới nhất.</p>
           </a>
+          
           <Link href="/lich-cong-giao" className="quick-action-card">
             <Image src="/calendar-icon.png" alt="Lịch Công Giáo Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Lịch Công Giáo</h2>
             <p className="mt-2 text-gray-400">Xem lịch phụng vụ cho các tuần sắp tới.</p>
           </Link>
+
         </div>
       </section>
 
@@ -78,16 +80,12 @@ export default async function HomePage() {
         <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
         <div className="announcement-box text-gray-300">
           {latestAnnouncement ? (
-            // Check if the announcement is an image URL
             isImageUrl(latestAnnouncement) ? (
-              // If it is, display it as an Image
               <Image src={latestAnnouncement} alt="Recent Announcement" width={800} height={500} style={{ maxWidth: '100%', height: 'auto', borderRadius: '5px' }} />
             ) : (
-              // Otherwise, display it as text
               latestAnnouncement
             )
           ) : (
-            // If no announcements are found, display this message
             <p>Hiện không có thông báo mới.</p>
           )}
         </div>
