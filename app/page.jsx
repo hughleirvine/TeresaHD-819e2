@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-// This function fetches the latest TEXT announcement from your Google Script API
+// This function fetches the latest announcement from your Google Script API
 async function getLatestAnnouncement() {
   const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
   
   try {
-    const response = await fetch(`${API_URL}?action=getLatestTextAnnouncement`, { next: { revalidate: 300 } });
+    const response = await fetch(`${API_URL}?action=getAnnouncements`, { next: { revalidate: 300 } });
     if (!response.ok) {
       throw new Error('Failed to fetch announcement');
     }
     const data = await response.json();
-    return data.announcement || null;
+    return data.announcements && data.announcements.length > 0 ? data.announcements[0] : null;
   } catch (error) {
     console.error("Failed to fetch announcement:", error);
     return null;
@@ -56,19 +56,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* --- CORRECTED ANNOUNCEMENT SECTION --- */}
-      <section>
-        <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
-        <div className="announcement-box text-gray-300">
-          {latestAnnouncement ? (
-            // If an announcement is found, display it
-            latestAnnouncement
-          ) : (
-            // If no text announcement is found, display this message
-            <p>Hiện không có thông báo mới.</p>
-          )}
-        </div>
-      </section>
+      {/* 3. Recent Announcement Section */}
+      {latestAnnouncement && (
+        <section>
+          <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
+          <div className="announcement-box text-gray-300">
+            {latestAnnouncement}
+          </div>
+        </section>
     </main>
   );
 }
