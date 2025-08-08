@@ -363,11 +363,3 @@ tr:nth-child(even) {
     background-color: rgba(167, 139, 250, 0.1);
 }
 
-.pageWrapper {
-  font-family: 'Merriweather', 'Georgia', 'Times New Roman', serif;
-  background-color: #E6F7FF; 
-  color: #444444;   
-  text-align: center;
-  padding-top: 1px; /* Prevents margin collapse */
-  padding-bottom: 20px;
-}
