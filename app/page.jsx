@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-// This function fetches the latest announcement from your Google Script API
+// This function fetches the latest TEXT announcement from your Google Script API
 async function getLatestAnnouncement() {
   const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
   
   try {
-    const response = await fetch(`${API_URL}?action=getAnnouncements`, { next: { revalidate: 300 } });
+    const response = await fetch(`${API_URL}?action=getLatestTextAnnouncement`, { next: { revalidate: 300 } });
     if (!response.ok) {
       throw new Error('Failed to fetch announcement');
     }
     const data = await response.json();
-    return data.announcements && data.announcements.length > 0 ? data.announcements[0] : null;
+    return data.announcement || null;
   } catch (error) {
     console.error("Failed to fetch announcement:", error);
     return null;
@@ -23,14 +23,17 @@ export default async function HomePage() {
 
   return (
     <main className="space-y-12">
-      {/* ... Welcome Section and Quick Action Cards remain the same ... */}
+      {/* 1. Welcome Section */}
       <section className="text-center py-16 px-4 rounded-lg hero-section">
-        <h1 className="text-4xl md:text-5xl font-bold text-white">Kính Chào Nhóm Teresa Hài Đồng Giêsu</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-white">
+          Kính Chào Nhóm Teresa Hài Đồng Giêsu
+        </h1>
         <p className="mt-4 text-lg text-gray-200">
           Tạ ơn Chúa đã ban cho chúng con hồng ân đồng hành học hỏi Lời Chúa.
         </p>
       </section>
 
+      {/* 2. Quick Actions Section */}
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           <Link href="/daily-prayers" className="quick-action-card">
@@ -57,13 +60,16 @@ export default async function HomePage() {
       </section>
 
       {/* 3. Recent Announcement Section */}
-      {latestAnnouncement && (
-        <section>
-          <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
-          <div className="announcement-box text-gray-300">
-            {latestAnnouncement}
-          </div>
-        </section>
+      <section>
+        <h2 className="text-3xl font-bold text-center mb-6 text-white">Thông Báo Gần Đây</h2>
+        <div className="announcement-box text-gray-300">
+          {latestAnnouncement ? (
+            latestAnnouncement
+          ) : (
+            <p>Hiện không có thông báo mới.</p>
+          )}
+        </div>
+      </section>
     </main>
   );
 }
