@@ -67,6 +67,7 @@ export default async function HomePage() {
             {latestAnnouncement}
           </div>
         </section>
+      )}
     </main>
   );
 }
