@@ -1,31 +1,29 @@
-// File: app/daily-prayers/page.jsx
+// File: app/weekly-prayers/page.jsx
 "use client";
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import styles from './prayers.module.css'; // Import the new CSS module
+import styles from './prayers.module.css';
 
 const JESUS_DIVINE_IMAGE_URL = "https://i.imgur.com/PyVG92U.png";
 
 export default function WeeklyPrayersPage() {
-  const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec'; // Make sure to paste your API URL here
 
   const [prayersData, setPrayersData] = useState(null);
-  const [tableData, setTableData] = useState(null);
+  // REMOVED: tableData state is no longer needed
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const prayersPromise = fetch(`${API_URL}?action=getWklyBiblePrayer`).then(res => res.json());
-    const tablePromise = ' ';
-
-    Promise.all([prayersPromise,tablePromise])
-      .then(([prayersResult, tableResult]) => {
-        if (prayersResult.error || tableResult.error) {
-          throw new Error(prayersResult.error || tableResult.error);
+    // SIMPLIFIED: Fetch only the daily prayers data
+    fetch(`${API_URL}?action=getWklyBiblePrayer`)
+      .then(res => res.json())
+      .then(prayersResult => {
+        if (prayersResult.error) {
+          throw new Error(prayersResult.error);
         }
         setPrayersData(prayersResult);
-        setTableData(tableResult);
       })
       .catch(err => {
         console.error(err);
@@ -38,44 +36,26 @@ export default function WeeklyPrayersPage() {
     return <div className={styles.pageWrapper}><div className={styles.container}><h1>Loading Prayers...</h1></div></div>;
   }
 
-  if (error || !prayersData || !tableData) {
+  // SIMPLIFIED: Error check no longer includes tableData
+  if (error || !prayersData) {
     return <div className={styles.pageWrapper}><div className={styles.container}><h1>Error Loading Page</h1><p>{error || "Data could not be loaded."}</p></div></div>;
   }
 
-  const tableInsertionIndex = 7;
+  // REMOVED: tableInsertionIndex is no longer needed
 
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.container}>
-        <h1>Thánh Kinh Mỗi Tuần</h1>
-        <h2>Kinh Chia Sẻ Kinh Thánh</h2>
+        <h1>KINH THÁNH</h1>
+        <h2>Kinh Trước Khi Chia Sẻ</h2>
 
         {prayersData.formattedPrayers.map((prayer, i) => (
           <div key={i}>
             <div className={styles.prayerSection}>
               <p className={styles.prayerText} dangerouslySetInnerHTML={{ __html: prayer }} />
             </div>
-
-            {i === tableInsertionIndex && tableData.tableData.length > 0 && (
-              <table className={styles.additionalTable}>
-                <thead>
-                  <tr>
-                    {tableData.tableData[0].map((header, colIndex) => (
-                      <th key={colIndex}>{header}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableData.tableData.slice(1).map((row, rowIndex) => (
-                    <tr key={rowIndex}>
-                      {row.map((cell, cellIndex) => (
-                        <td key={cellIndex}>{cell}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+            
+            {/* REMOVED: The logic for rendering the additional table is gone */}
           </div>
         ))}
 
