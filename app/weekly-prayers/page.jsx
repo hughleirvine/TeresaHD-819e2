@@ -19,7 +19,7 @@ export default function WeeklyPrayersPage() {
     const prayersPromise = fetch(`${API_URL}?action=getWklyBiblePrayer`).then(res => res.json());
     const tablePromise = null;
 
-    Promise.all([prayersPromise, tablePromise])
+    Promise.all([prayersPromise])
       .then(([prayersResult, tableResult]) => {
         if (prayersResult.error || tableResult.error) {
           throw new Error(prayersResult.error || tableResult.error);
