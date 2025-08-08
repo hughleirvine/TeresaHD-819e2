@@ -1,42 +1,43 @@
-// File: app/daily-prayers/page.jsx
+// File: app/weekly-prayers/page.jsx
 "use client";
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import styles from './prayers.module.css'; // Import the new CSS module
+import styles from './prayers.module.css';
 
 const JESUS_DIVINE_IMAGE_URL = "https://i.imgur.com/PyVG92U.png";
 
-export default function DailyPrayersPage() {
+export default function WeeklyPrayersPage() {
   const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
 
   const [prayersData, setPrayersData] = useState(null);
-  //const [tableData, setTableData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // --- CORRECTED useEffect HOOK ---
   useEffect(() => {
-    fetch(`${API_URL}?action=getWklyBiblePrayer`).then(res => res.json());
-    //const tablePromise = fetch(`${API_URL}?action=getPrayerTable`).then(res => res.json());
+    // The promise chain must be continuous: fetch().then().then().catch().finally()
+    fetch(`${API_URL}?action=getWklyBiblePrayer`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then(prayersResult => {
+        if (prayersResult.error) {
+          throw new Error(prayersResult.error);
+        }
+        setPrayersData(prayersResult);
+      })
+      .catch(err => {
+        console.error(err);
+        setError(err.message);
+      })
+      .finally(() => setIsLoading(false));
+  }, [API_URL]);
+  // --- END OF CORRECTION ---
 
-    //Promise.all([prayersPromise, tablePromise])
-      //.then(([prayersResult, tableResult]) => {
-      //if (prayersResult.error || tableResult.error) {
-          //throw new Error(prayersResult.error || tableResult.error);
-        //}
-    .then(res => res.json())
-    .then(prayersResult => {
-      if (prayersResult.error){
-        throw new Error(prayersResult.error);
-      }
-      setPrayersData(prayersResult);
-    })
-    .catch(err => {
-      console.error(err);
-      setError(err.message);
-    })
-    .finally(() => setIsLoading(false));
-  },[API_URL]);
   if (isLoading) {
     return <div className={styles.pageWrapper}><div className={styles.container}><h1>Loading Prayers...</h1></div></div>;
   }
