@@ -51,11 +51,14 @@ export default async function HomePage() {
             <h2 className="text-2xl font-semibold text-white">Hiệp Thông Hàng Tuần</h2>
             <p className="mt-2 text-gray-400">Tải về các bản tin Hiệp Thông mới nhất.</p>
           </a>
+
+          {/* ADDED: Liturgical Calendar Card */}
           <Link href="/lich-cong-giao" className="quick-action-card">
             <Image src="/calendar-icon.png" alt="Lịch Công Giáo Icon" width={80} height={80} className="mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-white">Lịch Công Giáo</h2>
             <p className="mt-2 text-gray-400">Xem lịch phụng vụ cho các tuần sắp tới.</p>
           </Link>
+          
         </div>
       </section>
 
