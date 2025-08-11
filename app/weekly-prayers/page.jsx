@@ -13,10 +13,11 @@ export default function WeeklyPrayersPage() {
   const [prayersData, setPrayersData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // NEW: State to manage image visibility
+  const [isImageVisible, setIsImageVisible] = useState(true);
 
-  // --- CORRECTED useEffect HOOK ---
   useEffect(() => {
-    // The promise chain must be continuous: fetch().then().then().catch().finally()
     fetch(`${API_URL}?action=getWklyBiblePrayer`)
       .then(res => {
         if (!res.ok) {
@@ -36,7 +37,11 @@ export default function WeeklyPrayersPage() {
       })
       .finally(() => setIsLoading(false));
   }, [API_URL]);
-  // --- END OF CORRECTION ---
+
+  // NEW: Function to toggle the image's visibility
+  const toggleImage = () => {
+    setIsImageVisible(!isImageVisible);
+  };
 
   if (isLoading) {
     return <div className={styles.pageWrapper}><div className={styles.container}><h1>Loading Prayers...</h1></div></div>;
@@ -63,11 +68,8 @@ export default function WeeklyPrayersPage() {
           Nhóm Teresa Hài Đồng Giêsu 2025
         </div>
       </div>
-      <div className={styles.imageContainer}>
-        <Image src={JESUS_DIVINE_IMAGE_URL} alt="Jesus Divine Image" width={200} height={300} style={{width: '100%', height: 'auto'}} priority />
-      </div>
 
-      {/* MODIFIED: Image container now has a dynamic class and a button */}
+      {/* CORRECTED: Replaced the old static image with this single collapsible one */}
       <div className={`${styles.imageContainer} ${!isImageVisible ? styles.imageCollapsed : ''}`}>
         <button onClick={toggleImage} className={styles.toggleButton}>
           {isImageVisible ? '›' : '‹'}
