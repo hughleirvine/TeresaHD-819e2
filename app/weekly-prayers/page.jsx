@@ -63,10 +63,18 @@ export default function WeeklyPrayersPage() {
           Nhóm Teresa Hài Đồng Giêsu 2025
         </div>
       </div>
-
       <div className={styles.imageContainer}>
         <Image src={JESUS_DIVINE_IMAGE_URL} alt="Jesus Divine Image" width={200} height={300} style={{width: '100%', height: 'auto'}} priority />
       </div>
+
+      {/* MODIFIED: Image container now has a dynamic class and a button */}
+      <div className={`${styles.imageContainer} ${!isImageVisible ? styles.imageCollapsed : ''}`}>
+        <button onClick={toggleImage} className={styles.toggleButton}>
+          {isImageVisible ? '›' : '‹'}
+        </button>
+        <Image src={JESUS_DIVINE_IMAGE_URL} alt="Jesus Divine Image" width={200} height={300} style={{width: '100%', height: 'auto'}} priority />
+      </div>
+      
     </div>
   );
 }
