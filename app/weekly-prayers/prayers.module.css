@@ -1,70 +1,107 @@
-/* File: app/daily-prayers/prayers.module.css */
+/* File: app/weekly-prayers/prayers.module.css */
 
 .pageWrapper {
-  font-family: 'Merriweather', 'Georgia', 'Times New Roman', serif;
-  margin: 0;
-  padding: 1px 0; /* Use padding to prevent margin collapse */
-  background-color: #E6F7FF; 
-  color: #444444;   
   text-align: center;
+  padding: 20px 0;
+  /* Ensure the background for the whole page is dark if not already set by global styles */
+  background-color: #111827; /* Dark background */
 }
 
 .container {
   max-width: 800px;
-  margin: 150px auto 20px auto; 
-  background-color: #FFFFFF; 
+  margin: 0 auto;
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   position: relative;
   z-index: 1;
+  background-color: #1F2937; /* Slightly lighter dark background for the content area */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Add some shadow for depth */
 }
 
 .container h1 {
-  color: #007BFF; 
-  font-size: 2.2em;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
+  color: #E0E7FF; /* A very light blue/white for primary title */
+  font-size: 2.4em; /* Slightly larger */
+  margin-bottom: 25px;
+  border-bottom: 2px solid #4B5563; /* Clearer separator */
+  padding-bottom: 15px;
 }
 
 .container h2 {
-  color: #007BFF; 
-  font-size: 1.8em;
-  margin-top: 30px;
-  margin-bottom: 15px;
+  color: #93C5FD; /* A brighter blue for secondary title */
+  font-size: 2em; /* Slightly larger */
+  margin-top: 35px;
+  margin-bottom: 20px;
 }
 
 .prayerSection {
-  font-size: 1.4em;
-  margin-bottom: 35px;
+  color: #F8F8F8; /* **KEY CHANGE: Bright white for main prayer text** */
+  margin-bottom: 25px;
+  font-size: 1.2em; /* Adjusted to be a good reading size */
   text-align: left;
+  line-height: 1.8; /* Improved readability */
 }
 
 .prayerText {
-  font-size: 1.4em;
-  line-height: 1.6;
-  margin-bottom: 25px;
-  white-space: pre-wrap;
+  /* No need to set color here again if prayerSection handles it */
+  margin-bottom: 15px;
+  white-space: pre-wrap; /* Preserve line breaks */
 }
 
+/* If there are specific styled parts like 'Moderator:' or '(A) Lời nguyện:'
+   that are also hard to see, you might need to add specific rules for them.
+   For example, if they are strong tags: */
+.prayerSection strong {
+  color: #93C5FD; /* Use the brighter blue for emphasis */
+}
+
+/* Also, ensure links within prayers are visible */
+.prayerSection a {
+  color: #67E8F9; /* Bright cyan for links */
+}
+
+/* Image container and button styles remain fine */
 .imageContainer {
   position: fixed; 
   top: 20px;       
   right: 20px;      
   z-index: 1000;   
   width: 200px;    
-  display: block;  
+  display: block;
+  transition: transform 0.4s ease-in-out;
+}
+
+.imageCollapsed {
+  transform: translateX(200px);
+}
+
+.toggleButton {
+  position: absolute;
+  top: 10px;
+  left: -40px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(55, 65, 81, 0.8);
+  color: white;
+  border: 1px solid #4B5563;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
 }
 
 .imageContainer img {
-  width: 110%; 
+  width: 100%; 
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   display: block; 
 }
 
+/* Dark theme styles for the table */
 .additionalTable {
   width: 100%;
   border-collapse: collapse;
@@ -73,61 +110,25 @@
   text-align: left;
   overflow-x: auto;
   display: block;
+  color: #F8F8F8; /* Ensure table text is also bright */
 }
-
 .additionalTable th, .additionalTable td {
-  border: 1px solid #ddd;
+  border: 1px solid #4B5563; /* Darker border for table cells */
   padding: 8px;
   vertical-align: top;
   white-space: pre-wrap;
   width: auto; 
 }
-
 .additionalTable th {
-  background-color: #f2f2f2;
+  background-color: #374151; /* Dark gray header */
   font-weight: bold;
-  color: #333;
+  color: #E0E7FF; /* Light white for table headers */
 }
 
 .footer {
   margin-top: 40px;
-  font-size: 1.8em; 
-  color: #007BFF; 
-  border-top: 1px solid #eee;
+  font-size: 1.2em;
+  color: #E0E7FF; /* Light white for footer */
+  border-top: 1px solid #4B5563; /* Clearer footer border */
   padding-top: 15px;
-}
-/* Add these new rules to prayers.module.css */
-
-.imageContainer {
-  position: fixed; 
-  top: 20px;       
-  right: 20px;      
-  z-index: 1000;   
-  width: 200px;    
-  display: block;
-  transition: transform 0.4s ease-in-out; /* Smooth sliding animation */
-}
-
-/* This class hides the image by sliding it off-screen */
-.imageCollapsed {
-  transform: translateX(200px); /* Move it 200px (its width) to the right */
-}
-
-.toggleButton {
-  position: absolute;
-  top: 10px;
-  left: -40px; /* Position button to the left of the image container */
-  width: 40px;
-  height: 40px;
-  background-color: #007BFF;
-  color: white;
-  border: 1px solid #fff;
-  border-right: none;
-  border-radius: 8px 0 0 8px; /* Rounded on the left side */
-  cursor: pointer;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
 }
