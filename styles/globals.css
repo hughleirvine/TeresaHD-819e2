@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Vietnamese:wght@400;700&display=swap');
-
 @import 'tailwindcss';
 
 @theme {
@@ -12,7 +10,6 @@
     --color-primary: #2bdcd2;
     --color-primary-content: #171717;
     --color-secondary: #016968;
-    --font-sans: 'Noto Sans Vietnamese', 'Segoe UI', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 @layer base {
