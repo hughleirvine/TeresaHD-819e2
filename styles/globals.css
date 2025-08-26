@@ -12,7 +12,7 @@
     --color-primary: #2bdcd2;
     --color-primary-content: #171717;
     --color-secondary: #016968;
-    --font-sans: 'Arial', 'Noto Sans Vietnamese', 'Segoe UI', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Noto Sans Vietnamese', 'Segoe UI', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 @layer base {
