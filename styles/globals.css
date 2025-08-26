@@ -16,6 +16,9 @@
 }
 
 @layer base {
+    html {
+        font-family: var(--font-sans);
+    }
     h1 {
         @apply text-4xl font-bold tracking-tight sm:text-5xl;
     }
@@ -157,7 +160,6 @@
 
 
 body {
-    font-family: Arial, sans-serif;
     margin: 20px;
     background-color: #f4f4f4;
     color: #333;
@@ -210,7 +212,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    font-family: "Times New Roman", serif;
+
 }
 th, td {
     border: 1px solid #ddd;
@@ -363,7 +365,6 @@ tr:nth-child(even) {
 }
 
 .pageWrapper {
-  font-family: 'Merriweather', 'Georgia', 'Times New Roman', serif;
   background-color: #E6F7FF; 
   color: #444444;   
   text-align: center;
