@@ -20,7 +20,7 @@
         font-family: var(--font-sans);
     }
     h1 {
-        @apply text-4xl font-bold tracking-tight sm:text-3xl;
+        @apply text-4xl font-bold tracking-tight sm:text-2xl;
     }
 
     h2 {
@@ -220,7 +220,7 @@ th, td {
     padding: 8px;
     text-align: left;
     font-family: "Times New Roman", serif;
-    font-size: 1.8em;
+    font-size: 1.5em;
 }
 th {
     background-color: #f2f2f2;
