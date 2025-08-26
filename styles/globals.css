@@ -17,7 +17,7 @@
 
 @layer base {
     html {
-        font-family: var(--font-sans);
+        font-family: "Times New Roman", serif;
     }
     h1 {
         @apply text-4xl font-bold tracking-tight sm:text-5xl;
@@ -218,7 +218,7 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-    
+    font-family: "Times New Roman", serif;
 }
 th {
     background-color: #f2f2f2;
