@@ -212,7 +212,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    font-size: 1.2em;
+    
 
 }
 th, td {
@@ -220,6 +220,7 @@ th, td {
     padding: 8px;
     text-align: left;
     font-family: "Times New Roman", serif;
+    font-size: 1.2em;
 }
 th {
     background-color: #f2f2f2;
