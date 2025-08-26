@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
 @import 'tailwindcss';
 
 @theme {
@@ -10,11 +12,12 @@
     --color-primary: #2bdcd2;
     --color-primary-content: #171717;
     --color-secondary: #016968;
+    --font-sans: 'Merriweather', 'Georgia', 'Times New Roman', serif;
 }
 
 @layer base {
     html {
-        font-family: "Times New Roman", serif;
+        font-family: var(--font-sans);
     }
     h1 {
         @apply text-4xl font-bold tracking-tight sm:text-5xl;
