@@ -220,12 +220,12 @@ th, td {
     padding: 8px;
     text-align: left;
     font-family: "Times New Roman", serif;
-    
+    font-size: 1.8em;
 }
 th {
     background-color: #f2f2f2;
     color: #333;
-    font-size: 1.2em;
+    
 }
 tr:nth-child(even) {
     background-color: #f9f9f9;
