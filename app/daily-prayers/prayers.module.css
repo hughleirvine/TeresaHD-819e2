@@ -139,3 +139,27 @@
   border-top: 1px solid #4B5563; /* Clearer footer border */
   padding-top: 15px;
 }
+
+/* Add these new rules to app/daily-prayers/prayers.module.css */
+
+.fullscreenModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9); /* Dark, semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Ensure it's on top of everything */
+  cursor: zoom-out; /* Indicate it's clickable to close */
+}
+
+.fullscreenModalImage {
+  max-width: 90vw; /* Limit image width to 90% of viewport */
+  max-height: 90vh; /* Limit image height to 90% of viewport */
+  object-fit: contain; /* Ensure the whole image is visible */
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); /* Soft glow */
+}

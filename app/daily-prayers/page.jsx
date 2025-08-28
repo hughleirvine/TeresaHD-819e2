@@ -14,9 +14,10 @@ export default function DailyPrayersPage() {
   const [tableData, setTableData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  // NEW: State to manage image visibility
   const [isImageVisible, setIsImageVisible] = useState(true);
+  
+  // NEW STATE: For controlling the full-screen modal
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   useEffect(() => {
     const prayersPromise = fetch(`${API_URL}?action=getDailyPrayers`).then(res => res.json());
@@ -37,10 +38,13 @@ export default function DailyPrayersPage() {
       .finally(() => setIsLoading(false));
   }, [API_URL]);
 
-  // NEW: Function to toggle the image's visibility
   const toggleImage = () => {
     setIsImageVisible(!isImageVisible);
   };
+
+  // NEW FUNCTIONS: To open and close the modal
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   if (isLoading) {
     return <div className={styles.pageWrapper}><div className={styles.container}><h1>Loading Prayers...</h1></div></div>;
@@ -66,7 +70,6 @@ export default function DailyPrayersPage() {
 
             {i === tableInsertionIndex && tableData.tableData.length > 0 && (
               <table className={styles.additionalTable}>
-                {/* Table content remains the same */}
                 <thead>
                   <tr>{tableData.tableData[0].map((h, c) => <th key={c}>{h}</th>)}</tr>
                 </thead>
@@ -85,13 +88,35 @@ export default function DailyPrayersPage() {
         </div>
       </div>
 
-      {/* MODIFIED: Image container now has a dynamic class and a button */}
       <div className={`${styles.imageContainer} ${!isImageVisible ? styles.imageCollapsed : ''}`}>
         <button onClick={toggleImage} className={styles.toggleButton}>
           {isImageVisible ? '›' : '‹'}
         </button>
-        <Image src={JESUS_DIVINE_IMAGE_URL} alt="Jesus Divine Image" width={200} height={300} style={{width: '100%', height: 'auto'}} priority />
+        {/* MODIFIED: Add onClick to Image to open modal */}
+        <Image 
+          src={JESUS_DIVINE_IMAGE_URL} 
+          alt="Jesus Divine Image" 
+          width={200} 
+          height={300} 
+          style={{width: '100%', height: 'auto', cursor: 'zoom-in'}} 
+          priority 
+          onClick={openModal} /* Add this line */
+        />
       </div>
+
+      {/* NEW: Full-screen Modal for expanded image */}
+      {isModalOpen && (
+        <div className={styles.fullscreenModalOverlay} onClick={closeModal}>
+          <Image
+            src={JESUS_DIVINE_IMAGE_URL}
+            alt="Expanded Jesus Divine Image"
+            width={1200} // Set a larger default width for the modal image
+            height={1800} // Set a larger default height for the modal image
+            className={styles.fullscreenModalImage}
+            priority
+          />
+        </div>
+      )}
     </div>
   );
 }
