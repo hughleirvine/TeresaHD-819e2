@@ -2,6 +2,9 @@ import Script from 'next/script'; // 1. Import the Script component
 import '../styles/globals.css';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 
 export const metadata = {
     title: {

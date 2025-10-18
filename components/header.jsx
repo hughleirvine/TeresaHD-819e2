@@ -7,6 +7,7 @@ const navItems = [
     { linkText: 'Kinh LCTX', href: '/daily-prayers'},
     { linkText: 'Kinh Thánh', href: '/weekly-prayers'},
     { linkText: 'Thông Báo', href: '/announcements' },
+    { linkText: 'Sinh Hoạt', href: '/activities' },
     { linkText: 'Hiệp Thông', href: '/bulletins' },
     { linkText: 'Lịch Công Giáo', href: '/lich-cong-giao' }
 ];

@@ -1,0 +1,122 @@
+/* File: app/activities/activities.module.css */
+
+/* --- Light Theme (Default) --- */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 2rem 0;
+  color: #111827; /* Dark Gray */
+}
+
+.eventSection {
+  margin-bottom: 3rem;
+}
+
+.eventHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #d1d5db;
+  padding-bottom: 0.5rem;
+}
+
+.eventTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.slideshowButton {
+  padding: 0.5rem 1rem;
+  background-color: #e5e7eb;
+  color: #1f2937;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.slideshowButton:hover {
+  background-color: #d1d5db;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.activityCard {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.activityCard:hover {
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 12rem; /* 192px */
+  position: relative;
+  cursor: zoom-in;
+}
+
+.cardContent {
+  padding: 1rem;
+  text-align: center;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.cardDescription {
+  color: #4b5563;
+}
+
+/* --- Dark Theme Overrides --- */
+
+:global(.dark) .pageTitle,
+:global(.dark) .eventTitle,
+:global(.dark) .cardTitle {
+  color: #f9fafb; /* Off-white */
+}
+
+:global(.dark) .eventHeader {
+  border-bottom-color: #4b5563;
+}
+
+:global(.dark) .slideshowButton {
+  background-color: #374151;
+  color: #f9fafb;
+}
+:global(.dark) .slideshowButton:hover {
+  background-color: #4b5563;
+}
+
+:global(.dark) .activityCard {
+  background-color: #1f2937;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+}
+:global(.dark) .activityCard:hover {
+  box-shadow: 0 10px 15px rgba(0,0,0,0.4);
+}
+
+:global(.dark) .cardDescription {
+  color: #9ca3af;
+}
