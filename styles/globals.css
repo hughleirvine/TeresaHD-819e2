@@ -159,6 +159,7 @@
 
     .activity-card {
         @apply bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-shadow hover:shadow-xl;
+        padding: 1rem; /* Add standard CSS padding here */
     }
 
   /* ADD THESE NEW RULES */
