@@ -9,8 +9,7 @@ export default function CalendarPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    //fetch('/api/get-calendar')
-    fetch(`/api/get-calendar?cachebust=${Date.now()}`)
+    fetch('/api/get-calendar')
       .then(res => {
         if (!res.ok) {
           throw new Error("Could not load the calendar data from the server.");
