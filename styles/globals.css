@@ -194,9 +194,12 @@
 }
 
 
-body {
-    margin: 20px;
-    background-color: #f4f4f4;
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: #111827; /* Dark background so it matches full-width dark pages */
     color: #333;
 }
 .container {
@@ -402,13 +405,7 @@ tr:nth-child(even) {
     background-color: rgba(167, 139, 250, 0.1);
 }
 
-.pageWrapper {
-  background-color: #E6F7FF; 
-  color: #444444;   
-  text-align: center;
-  padding-top: 1px; /* Prevents margin collapse */
-  padding-bottom: 20px;
-}
+
 #buttonsContainer {
   text-align: center;
 }

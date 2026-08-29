@@ -19,47 +19,87 @@ export default function AnnouncementPage() {
       })
       .catch(err => console.error("Error fetching announcements:", err))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [API_URL]);
 
-  // This function checks if a string is a direct link to an image file
+  // Check if string is a direct link to an image file
   const isImageUrl = (url) => {
-    return /\.(jpeg|jpg|gif|png|svg)$/i.test(url);
+    return /\.(jpeg|jpg|gif|png|svg|webp)$/i.test(url?.trim());
+  };
+
+  // Helper to parse URLs inside text into clickable links
+  const renderTextWithLinks = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, i) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={i}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#67E8F9] hover:underline break-all font-medium transition-colors"
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h1>Thông Báo</h1>
-      <hr style={{ margin: '20px 0' }} />
-      {isLoading ? (
-        <p>Loading thông báo...</p>
-      ) : (
-        <ul style={{ paddingLeft: '0', listStyle: 'none' }}>
-          {announcements.map((item, index) => {
-            // Check if the item is an image URL
-            const isImage = isImageUrl(item);
-            
-            return (
-              <li key={index} style={{
-                  marginBottom: '15px',
-                  // Only add padding and background for text items
-                  padding: isImage ? '0' : '15px',
-                  backgroundColor: isImage ? 'transparent' : '#f0f0f0',
-                  borderRadius: '5px',
-                  color: '#333',
-                  whiteSpace: 'pre-wrap'
-              }}>
-                {isImage ? (
-                  // If it's an image, render an <img> tag
-                  <img src={item} alt={`Announcement ${index + 1}`} style={{ maxWidth: '100%', borderRadius: '5px' }} />
-                ) : (
-                  // Otherwise, render the text
-                  item
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      )}
+    <div className="w-full min-h-screen py-8">
+      <div className="max-w-4xl px-4 mx-auto sm:px-6">
+        {/* Page Header */}
+        <h1 className="text-3xl sm:text-4xl font-bold text-[#E0E7FF] text-center mb-4 tracking-tight">
+          Thông Báo
+        </h1>
+        <div className="w-24 h-1 bg-[#374151] mx-auto rounded mb-8" />
+
+        {/* Loading State */}
+        {isLoading ? (
+          <p className="text-center text-[#93C5FD] text-lg animate-pulse my-10">
+            Đang tải thông báo...
+          </p>
+        ) : announcements.length > 0 ? (
+          <ul className="space-y-6 list-none p-0">
+            {announcements.map((item, index) => {
+              const isImage = isImageUrl(item);
+              
+              return (
+                <li
+                  key={index}
+                  className={`rounded-xl border transition-all duration-200 shadow-lg ${
+                    isImage 
+                      ? 'bg-transparent border-transparent p-0 overflow-hidden' 
+                      : 'bg-[#1F2937] border-gray-700/80 p-5 sm:p-6 text-[#F8F8F8] leading-relaxed'
+                  }`}
+                >
+                  {isImage ? (
+                    <div className="relative overflow-hidden rounded-xl border border-gray-700/80 bg-[#1F2937] p-2 flex justify-center">
+                      <img 
+                        src={item} 
+                        alt={`Thông báo ${index + 1}`} 
+                        className="max-w-full h-auto rounded-lg object-contain shadow-md" 
+                      />
+                    </div>
+                  ) : (
+                    <div className="whitespace-pre-wrap text-base sm:text-lg">
+                      {renderTextWithLinks(item)}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <div className="bg-[#1F2937] border border-gray-700/80 rounded-xl p-8 text-center text-gray-300">
+            Hiện chưa có thông báo mới.
+          </div>
+        )}
+      </div>
     </div>
   );
 }

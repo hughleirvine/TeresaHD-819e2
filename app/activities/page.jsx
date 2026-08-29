@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Slider from "react-slick"; // Import the Slider component
+import Slider from "react-slick";
 
 // Reusable Slideshow Modal Component
 function SlideshowModal({ images, onClose }) {
@@ -19,16 +19,23 @@ function SlideshowModal({ images, onClose }) {
 
   return (
     <div className="fullscreen-modal-overlay" onClick={onClose}>
-      <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-4xl px-4" onClick={(e) => e.stopPropagation()}>
         <Slider {...sliderSettings}>
           {images.map((activity, index) => (
-            <div key={index} className="p-4">
-              <div className="w-full h-[70vh] relative">
-                <Image src={activity.imageUrl} alt={activity.title} fill className="object-contain" />
+            <div key={index} className="p-2">
+              <div className="w-full h-[65vh] relative rounded-lg overflow-hidden bg-black/40">
+                <Image 
+                  src={activity.imageUrl} 
+                  alt={activity.title || "Slideshow image"} 
+                  fill 
+                  className="object-contain" 
+                />
               </div>
-              <div className="p-6 text-center text-white">
-                <h2 className="text-2xl font-bold mb-2">{activity.title}</h2>
-                <p className="text-gray-300">{activity.description}</p>
+              <div className="p-4 text-center text-white">
+                <h2 className="text-2xl font-bold mb-2 text-[#E0E7FF]">{activity.title}</h2>
+                {activity.description && (
+                  <p className="text-gray-300 text-sm sm:text-base">{activity.description}</p>
+                )}
               </div>
             </div>
           ))}
@@ -40,13 +47,13 @@ function SlideshowModal({ images, onClose }) {
 
 // Main Page Component
 export default function ActivitiesPage() {
-  const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec'; // Make sure this is your correct API URL
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyOjM1HbdNG0gU3OPSIj5Q0oU3gIhLcrPT-TFZnSYNpjQtMlzBXsqPDJy1_-A-f8nCF/exec';
 
   const [activities, setActivities] = useState([]);
   const [groupedActivities, setGroupedActivities] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [activeSlideshow, setActiveSlideshow] = useState(null); // State for slideshow modal
-  const [modalImage, setModalImage] = useState(null); // State for single image modal
+  const [activeSlideshow, setActiveSlideshow] = useState(null);
+  const [modalImage, setModalImage] = useState(null);
 
   useEffect(() => {
     fetch(`${API_URL}?action=getActivities`)
@@ -54,7 +61,6 @@ export default function ActivitiesPage() {
       .then(data => {
         if (data.activities) {
           setActivities(data.activities);
-          // Group activities by event
           const grouped = data.activities.reduce((acc, activity) => {
             const eventName = activity.event || "Uncategorized";
             if (!acc[eventName]) acc[eventName] = [];
@@ -71,77 +77,118 @@ export default function ActivitiesPage() {
   const events = Object.keys(groupedActivities);
 
   if (isLoading) {
-    return <p className="text-center p-10">Loading activities...</p>;
+    return (
+      <div className="w-full min-h-[60vh] flex items-center justify-center">
+        <p className="text-xl text-[#93C5FD] animate-pulse">Đang tải hoạt động...</p>
+      </div>
+    );
   }
 
   return (
-    <main>
-      <div className="flex justify-between items-center my-8">
-        <h1 className="text-4xl font-bold">Hoạt Động Của Nhóm</h1>
+    <div className="w-full min-h-screen py-6 sm:py-10">
+      {/* Top Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 mb-8 border-b border-gray-700">
+        <h1 className="text-3xl sm:text-4xl font-bold text-[#E0E7FF] tracking-tight">
+          Hoạt Động Của Nhóm
+        </h1>
         {activities.length > 0 && (
           <button
             onClick={() => setActiveSlideshow(activities)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all duration-150 cursor-pointer"
           >
             Play All
           </button>
         )}
       </div>
 
+      {/* Grouped Events */}
       {events.length > 0 ? (
         <div className="space-y-12">
           {events.map(event => (
-            <section key={event}>
-              <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-2">
-                <h2 className="text-3xl font-bold">{event}</h2>
+            <section key={event} className="space-y-6">
+              {/* Event Section Heading & Action */}
+              <div className="flex justify-between items-center pb-3 border-b border-gray-700">
+                <h2 className="text-2xl sm:text-3xl font-semibold text-[#93C5FD]">
+                  {event}
+                </h2>
                 <button
                   onClick={() => setActiveSlideshow(groupedActivities[event])}
-                  className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                  className="px-4 py-1.5 bg-blue-600/80 hover:bg-blue-600 text-white text-sm font-medium rounded-md shadow transition duration-150 cursor-pointer"
                 >
                   Play Slideshow
                 </button>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {groupedActivities[event].filter(act => act.imageUrl).map((activity, index) => (
-                    <div key={index} className="activity-card">
-                      {/* Make the image container clickable for single view */}
+
+              {/* Grid of Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {groupedActivities[event]
+                  .filter(act => act.imageUrl)
+                  .map((activity, index) => (
+                    <div 
+                      key={index} 
+                      className="bg-[#1F2937] border border-gray-700/80 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-200 flex flex-col"
+                    >
+                      {/* Clickable Image Container */}
                       <div
-                        className="w-full h-48 relative cursor-zoom-in"
+                        className="w-full h-64 relative cursor-zoom-in bg-black/30 overflow-hidden"
                         onClick={() => setModalImage(activity.imageUrl)}
                       >
-                        <Image src={activity.imageUrl} alt={activity.title} fill className="object-contain rounded-t-lg"/>
+                        <Image 
+                          src={activity.imageUrl} 
+                          alt={activity.title || "Hình hoạt động"} 
+                          fill 
+                          className="object-contain hover:scale-105 transition-transform duration-300 p-2"
+                        />
                       </div>
-                      <div className="p-4 text-center">
-                        <h3 className="text-xl font-bold mb-2">{activity.title}</h3>
-                        <p className="text-gray-600 dark:text-gray-400">{activity.description}</p>
+
+                      {/* Card Content */}
+                      <div className="p-4 text-center flex flex-col grow justify-center">
+                        <h3 className="text-lg sm:text-xl font-semibold text-[#F8F8F8] mb-1">
+                          {activity.title}
+                        </h3>
+                        {activity.description && (
+                          <p className="text-gray-300 text-sm">
+                            {activity.description}
+                          </p>
+                        )}
                       </div>
                     </div>
-                ))}
+                  ))}
               </div>
             </section>
           ))}
         </div>
       ) : (
-        <p className="text-center">Hiện không có hoạt động nào được đăng.</p>
+        <p className="text-center text-gray-300 text-lg py-12">
+          Hiện không có hoạt động nào được đăng.
+        </p>
       )}
 
       {/* Slideshow Modal */}
       {activeSlideshow && (
-        <SlideshowModal images={activeSlideshow} onClose={() => setActiveSlideshow(null)} />
+        <SlideshowModal 
+          images={activeSlideshow} 
+          onClose={() => setActiveSlideshow(null)} 
+        />
       )}
 
       {/* Single Image Fullscreen Modal */}
       {modalImage && (
-        <div className="fullscreen-modal-overlay" onClick={() => setModalImage(null)}>
-          <Image
-            src={modalImage}
-            alt="Expanded Activity Image"
-            width={1200} // Adjust size as needed
-            height={800} // Adjust size as needed
-            className="fullscreen-modal-image"
-          />
+        <div 
+          className="fullscreen-modal-overlay" 
+          onClick={() => setModalImage(null)}
+        >
+          <div className="relative max-w-[90vw] max-h-[90vh]">
+            <Image
+              src={modalImage}
+              alt="Expanded Activity"
+              width={1200}
+              height={800}
+              className="object-contain max-w-[90vw] max-h-[90vh] rounded-lg shadow-2xl"
+            />
+          </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }
